@@ -7,11 +7,20 @@ class TodoApp extends StatefulWidget{
 }
 
 class _AppDesign extends State<TodoApp>{
-  @override
+  TextEditingController name = TextEditingController();
+  TextEditingController desc = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Image.asset("assets/images/bg.avif",
+        fit: BoxFit.cover),
+        shape : RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top : Radius.circular(30)
+          ),
+        ),
         title: const Text("Todo App",
         style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -47,6 +56,7 @@ class _AppDesign extends State<TodoApp>{
                       height: 70,
                       width: 500,
                       child: TextField(
+                        controller: name,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
                           labelText: "Add Your Task"
@@ -62,9 +72,11 @@ class _AppDesign extends State<TodoApp>{
                     height: 202,
                       width: 500,
                       child: TextField(
+                        controller: desc,
                         maxLines: null,
                         expands: true,
                         maxLength: 150,
+                        textAlignVertical: TextAlignVertical.top,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: "Task Description",
@@ -77,12 +89,47 @@ class _AppDesign extends State<TodoApp>{
                 ],
               ),
             ),
+            SizedBox(height: 10),
+            //Add Task Button Creation
+            ElevatedButton(onPressed: (){
+              String taskName = name.text;
+              String description = desc.text;
+              debugPrint(desc.text);
+              }, style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromRGBO(146, 49, 237, 1.0),
+              fixedSize: Size(250, 30),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero
+                )
+            ),
+                child: Text("Add Task",
+                style: TextStyle(
+                  color: Colors.white
+                ),
+                )),
+            SizedBox(height : 20),
             const Divider(
               height: 20,          // The total height of the widget (includes empty space above/below the line)
               thickness: 2,        // The actual thickness of the line itself
               indent: 20,           // Empty space to the left of the line
               endIndent: 20,        // Empty space to the right of the line
-              color: Colors.grey,   // The color of the line
+              color: Color.fromRGBO(37, 1, 62, 1.0)   // The color of the line
+            ),
+            Align(
+                alignment: Alignment.centerLeft,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: Text("Your Tasks : ",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25
+                      ),
+                    ),
+                  ),
+                ],
+              )
             )
           ],
         ),
